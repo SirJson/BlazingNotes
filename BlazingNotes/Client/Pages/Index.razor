@@ -1,0 +1,74 @@
+﻿@page "/"
+@inject IJSRuntime JSRuntime
+@using BlazingNotes.Shared
+@using Markdig
+@inject HttpClient Http
+
+@if (document == null)
+{
+    <div>Loading</div>
+}
+else
+{
+    <titlecontainer>
+        <titlebar>
+            <paneheader>
+                <img class="invert" src="img/icons8_opened_folder_96px.png" width="32" height="32" />
+                @document.Title
+            </paneheader>
+            <div>
+                <!-- <a href="/" class="config invert"><img src="img/tabaddtag.png" width="32" height="32" /></a>
+                <a href="/" class="config invert"><img src="img/tabfav.png" width="32" height="32" /></a>
+                           <a class="config invert"><img src="img/tabinfo.png" width="32" height="32" /></a>-->
+                <button @onclick="ShowMarkdown" class="config"><img src="img/tabshow.png" width="32" height="32" /></button>
+                <button @onclick="ShowEditor" class="config"><img src="img/tabedit.png" width="32" height="32" /></button>
+                <button class="config"><img src="img/tabdelete.png" width="32" height="32" /></button>
+
+            </div>
+        </titlebar>
+        <tagbar></tagbar>
+    </titlecontainer>
+   
+    <MonacoEditor @ref="editor" Model="@editorModel" class="editor" />
+    <div style="display: @((editMode ? "none" : "block"))" id="docview" class="editor">@((MarkupString)renderedDoc)</div>
+ }
+@code {
+    private EditorModel editorModel { get; set; }
+    private MonacoEditor editor;
+    private Document document;
+    public bool editMode = true;
+    private string renderedDoc = "<div>ERROR</div>";
+
+    protected override async Task OnInitializedAsync()
+    {
+        document = await Http.GetJsonAsync<Document>("Prototype");
+        var options = new EditorOptions()
+        {
+            Language = "markdown",
+            Theme = "vs-light",
+            AutomaticLayout = true,
+            Contextmenu = false,
+            Minimap = new MinimapOptions()
+            {
+                Enabled = false
+            },
+
+        };
+        editorModel = new EditorModel(options);
+    }
+
+    async Task ShowMarkdown()
+    {
+        var content = await editor.GetValue();
+        renderedDoc = Markdown.ToHtml(content);
+        editMode = false;
+        editor.Hidden = true; 
+        this.StateHasChanged();
+    }
+
+    void ShowEditor()
+    {
+        editor.Hidden = false;
+        editMode = true;
+    }
+}

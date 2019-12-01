@@ -1,0 +1,25 @@
+﻿@page "/fetchdata"
+@using BlazingNotes.Shared
+@inject HttpClient Http
+
+<p>This component demonstrates fetching data from the server.</p>
+
+@if (protoText == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <h3>@protoText.Title</h3>
+    <div>@protoText.Content</div>
+}
+
+@code {
+    private Document protoText;
+
+    protected override async Task OnInitializedAsync()
+    {
+        protoText = await Http.GetJsonAsync<Document>("Prototype");
+    }
+
+}

@@ -1,0 +1,123 @@
+﻿/*$color-base: 200;
+
+$folder-container-color: $color-base;
+$item-container-color: $folder-container-color - 100;
+$editor-color: 50;
+
+$folder-entry-color: $folder-container-color + 100;
+$item-entry-color: $item-container-color + 100;
+$bar-color-primary: $folder-entry-color + 200;
+$bar-color-lower: $folder-entry-color + 100;
+*/
+
+$color-base: 100;
+
+$item-container-color: #d3d3d3;
+$folder-container-color: #b0bec5;
+$editor-color: #eceff1;
+
+$folder-entry-color: #90a4ae;
+$item-entry-color: #d3d3d3;
+
+$bar-color-primary: #607d8b;
+$bar-color-lower: #78909c;
+
+$dark-txt: rgba(40, 42, 54, 0.87);
+$light-txt: rgba(254, 254, 254, 0.87);
+
+$font-color: $dark-txt;
+$font-color-inv: $light-txt;
+
+$material-table: (
+  50: #eceff1 $font-color,
+  100: #cfd8dc $font-color,
+  200: #b0bec5 $font-color,
+  300: #90a4ae $font-color,
+  400: #78909c $font-color-inv,
+  500: #607d8b $font-color-inv,
+  600: #546e7a $font-color-inv,
+  700: #455a64 $font-color-inv,
+  800: #37474f $font-color-inv,
+  900: #263238 $font-color-inv
+);
+
+@function mat-bg($level) {
+  @return nth(map-get($material-table, $level), 1);
+}
+
+@function mat-fg($level) {
+  @return nth(map-get($material-table, $level), 2);
+}
+
+@mixin mat-color($level) {
+  background-color: mat-bg($level);
+  color: mat-fg($level);
+}
+
+.navy {
+  color: desaturate(#001f3f, 20%);
+}
+
+.blue {
+  color: desaturate(#0074d9, 20%);
+}
+
+.aqua {
+  color: desaturate(#7fdbff, 20%);
+}
+
+.teal {
+  color: desaturate(#39cccc, 20%);
+}
+
+.olive {
+  color: desaturate(#3d9970, 20%);
+}
+
+.green {
+  color: desaturate(#2ecc40, 20%);
+}
+
+.lime {
+  color: desaturate(#01ff70, 20%);
+}
+
+.yellow {
+  color: desaturate(#ffdc00, 20%);
+}
+
+.orange {
+  color: desaturate(#ff851b, 20%);
+}
+
+.red {
+  color: desaturate(#ff4136, 20%);
+}
+
+.fuchsia {
+  color: desaturate(#f012be, 20%);
+}
+
+.purple {
+  color: desaturate(#b10dc9, 20%);
+}
+
+.maroon {
+  color: desaturate(#85144b, 20%);
+}
+
+.white {
+  color: desaturate(#ffffff, 20%);
+}
+
+.silver {
+  color: desaturate(#dddddd, 20%);
+}
+
+.gray {
+  color: desaturate(#aaaaaa, 20%);
+}
+
+.black {
+  color: desaturate(#111111, 20%);
+}

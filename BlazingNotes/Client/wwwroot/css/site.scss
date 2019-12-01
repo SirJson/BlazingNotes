@@ -1,0 +1,186 @@
+﻿@import "minireset.scss";
+@import "colors.scss";
+@import "fonts.scss";
+@import "layout.scss";
+@import "../lib/office-ui-fabric-core/sass/_References.scss";
+@import "./card.scss";
+
+card::before {
+    content: "\f7a5";
+    @include fa-icon;
+    font-size: 12px;
+}
+
+body {
+    font-family: $ms-font-family-west-european;
+    font-size: $ms-font-size-20;
+    line-height: 28px;
+    color: $light-txt;
+}
+
+main {
+    display: grid;
+    grid-template-columns: 10vw 10vw auto;
+    grid-template-rows: auto auto;
+    grid-template-areas: "appbar search titlebar" "folder items editor";
+    @include full-viewport;
+}
+
+nav {
+    grid-area: appbar;
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: auto auto;
+    grid-template-areas: "logo cfg";
+    background: #607d8b;
+}
+
+toolbar {
+    display: flex;
+    grid-area: cfg;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+nav > img {
+    grid-area: logo;
+    align-self: center;
+    margin-left: 8px;
+}
+
+a.config {
+    align-self: flex-end;
+}
+
+a.about {
+    align-self: flex-end;
+}
+
+titlecontainer {
+    grid-area: titlebar;
+    grid-template-rows: auto auto;
+    grid-template-columns: auto;
+    display: grid;
+}
+
+titlebar {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto;
+    background-color: #607d8b;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 24px;
+    font-weight: 300;
+}
+
+tagbar {
+    background: #78909c;
+    display: flex;
+    min-height: 37px;
+}
+
+.editor {
+    grid-area: editor;
+    background-color: #eceff1;
+}
+
+hero,
+h1 {
+    font-size: $ms-font-size-42;
+    line-height: 52px;
+    font-weight: map-get($font-weights, "light");
+}
+
+greetings,
+h2 {
+    font-size: $ms-font-size-32;
+    line-height: 40px;
+    font-weight: map-get($font-weights, "light");
+}
+
+pagetitle,
+h3 {
+    font-size: $ms-font-size-28;
+    line-height: 36px;
+    font-weight: map-get($font-weights, "light");
+}
+
+mailheader,
+h3 {
+    font-size: $ms-font-size-24;
+    line-height: 32px;
+}
+
+paneheader,
+h4 {
+    font-size: $ms-font-size-20;
+    line-height: 28px;
+}
+
+paneheader {
+    display: flex;
+    align-items: center;
+}
+
+notestoolbar {
+    grid-area: search;
+    background: #607d8b;
+    display: flex;
+    flex-direction: column;
+    padding: 8px 16px;
+}
+
+.search-box {
+    border-radius: 4px;
+    padding: 8px 32px;
+    background-image: url(../img/search_32px.png);
+    background-position: 4px 4px;
+    background-repeat: no-repeat;
+    background-size: 24px;
+}
+
+.sortselect {
+    width: min-content;
+    margin-top: 10px;
+}
+
+folderview {
+    grid-area: folder;
+    background-color: #B0BEC5;
+    display: grid;
+    grid-auto-rows: 6vh;
+    grid-row-gap: 8px;
+    padding: 1vw;
+    @include z1;
+}
+
+.folder {
+    background-color: #90a4ae;
+}
+
+itemlist {
+    grid-area: items;
+    background-color: #CFD8DC;
+    display: grid;
+    grid-auto-rows: 4vh;
+    grid-row-gap: 4px;
+    padding: 1vw;
+    @include z1;
+}
+
+.item {
+    background-color: #b0bec5;
+    line-height: normal;
+    font-size: 16px;
+}
+
+.invert {
+    filter: invert(1);
+}
+
+#docview {
+    color: $dark-txt;
+    background-color: white;
+    min-height: 91vh;
+}

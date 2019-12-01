@@ -1,0 +1,49 @@
+﻿@using Microsoft.AspNetCore.Components
+@using Microsoft.JSInterop
+
+<div style="display: @((Hidden ? "none" : "block"))" class=@(@class) id="@Model.Id"></div>
+
+@code {
+
+    [Inject]
+    IJSRuntime runtime { get; set; }
+
+    [Parameter]
+    public EditorModel Model { get; set; }
+
+    [Parameter]
+    public string @class { get; set; }
+
+    [Parameter]
+    public bool Hidden { get; set; }
+
+    private bool _alreadyRendered = false;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!_alreadyRendered)
+        {
+            _alreadyRendered = await BlazacoJSInterop.InitializeEditor(runtime, Model);
+        }
+    }
+
+    public async Task<string> GetValue()
+    {
+        return await BlazacoJSInterop.GetValue(runtime, Model.Id);
+    }
+
+    public async Task<bool> SetValue(string newValue)
+    {
+        return await BlazacoJSInterop.SetValue(runtime, Model.Id, newValue);
+    }
+
+    public async Task<bool> SetTheme(string newTheme)
+    {
+        return await BlazacoJSInterop.SetTheme(runtime, Model.Id, newTheme);
+    }
+
+    public async Task<bool> Layout()
+    {
+        return await BlazacoJSInterop.Layout(runtime, Model.Id);
+    }
+}

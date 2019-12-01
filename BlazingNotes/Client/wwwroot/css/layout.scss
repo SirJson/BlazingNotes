@@ -1,0 +1,82 @@
+﻿$spacer-size: 16px;
+
+@mixin padout($times) {
+  padding: 4px * $times;
+}
+
+@mixin leftmov($times) {
+  margin-left: 8px * $times;
+}
+
+@mixin fill {
+  width: 100%;
+  height: 100%;
+}
+
+@mixin full-viewport {
+  width: 100vw;
+  height: 100vh;
+}
+
+@mixin img($width, $height, $file) {
+  display: inline-block;
+  font-size: 0;
+  line-height: 0;
+  vertical-align: middle;
+  background-size: 100%;
+  background-position: 50% 50%;
+  height: $height;
+  width: $width;
+  background-repeat: no-repeat;
+  background-image: $file;
+
+  & > span {
+    display: block;
+    height: 0;
+  }
+}
+
+@mixin responsive-img($height, $file) {
+  display: inline-block;
+  font-size: 0;
+  line-height: 0;
+  vertical-align: middle;
+  background-size: 100%;
+  background-position: 50% 50%;
+  height: $height;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-image: $file;
+
+  & > span {
+    display: block;
+    height: 0;
+  }
+}
+
+@mixin fa-icon {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+}
+
+hspacer-half {
+  display: block;
+  height: 100%;
+  width: $spacer-size / 2;
+}
+
+hspacer {
+  display: block;
+  height: 100%;
+  width: $spacer-size;
+}
+
+vspacer {
+  display: block;
+  width: 100%;
+  height: $spacer-size;
+}
+
+flexfill {
+  flex: 1 0;
+}

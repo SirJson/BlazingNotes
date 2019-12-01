@@ -1,0 +1,79 @@
+/*$color-base: 200;
+
+$folder-container-color: $color-base;
+$item-container-color: $folder-container-color - 100;
+$editor-color: 50;
+
+$folder-entry-color: $folder-container-color + 100;
+$item-entry-color: $item-container-color + 100;
+$bar-color-primary: $folder-entry-color + 200;
+$bar-color-lower: $folder-entry-color + 100;
+*/
+.navy {
+  color: #061f39;
+}
+
+.blue {
+  color: #1673c3;
+}
+
+.aqua {
+  color: #8cd5f2;
+}
+
+.teal {
+  color: #52b3b3;
+}
+
+.olive {
+  color: #52846e;
+}
+
+.green {
+  color: #47b353;
+}
+
+.lime {
+  color: #1ae673;
+}
+
+.yellow {
+  color: #e6ca1a;
+}
+
+.orange {
+  color: #e88732;
+}
+
+.red {
+  color: #eb534a;
+}
+
+.fuchsia {
+  color: #d72bb0;
+}
+
+.purple {
+  color: #a122b4;
+}
+
+.maroon {
+  color: #76234b;
+}
+
+.white {
+  color: white;
+}
+
+.silver {
+  color: #dddddd;
+}
+
+.gray {
+  color: #aaaaaa;
+}
+
+.black {
+  color: #111111;
+}
+/*# sourceMappingURL=colors.css.map */

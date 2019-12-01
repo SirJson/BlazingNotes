@@ -1,0 +1,24 @@
+﻿<card class=@(@class)>
+    <hspacer />
+    <i class="fas @Icon @Color"></i>
+    <hspacer-half />
+    <span>@Name</span>
+    @if (Counter > 1)
+    {
+        <flexfill />
+        <span>@Counter</span>
+    }
+</card>
+
+@code {
+    [Parameter]
+    public string Name { get; set; }
+    [Parameter]
+    public int Counter { get; set; }
+    [Parameter]
+    public string Color { get; set; }
+    [Parameter]
+    public string Icon { get; set; }
+    [Parameter]
+    public string @class { get; set; }
+}
