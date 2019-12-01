@@ -20,8 +20,8 @@ body {
 
 main {
     display: grid;
-    grid-template-columns: 10vw 10vw auto;
-    grid-template-rows: auto auto;
+    grid-template-columns: 20vw 20vw 60vw;
+    grid-template-rows: 5vh auto;
     grid-template-areas: "appbar search titlebar" "folder items editor";
     @include full-viewport;
 }
@@ -40,6 +40,7 @@ toolbar {
     grid-area: cfg;
     flex-direction: row;
     justify-content: flex-end;
+    align-items: center;
 }
 
 nav > img {
@@ -48,22 +49,12 @@ nav > img {
     margin-left: 8px;
 }
 
-a.config {
-    align-self: flex-end;
-}
-
-a.about {
-    align-self: flex-end;
-}
-
-titlecontainer {
-    grid-area: titlebar;
-    grid-template-rows: auto auto;
-    grid-template-columns: auto;
-    display: grid;
+toolbar > a {
+    margin: 4px;
 }
 
 titlebar {
+    grid-area: titlebar;
     display: grid;
     grid-template-columns: auto auto;
     grid-template-rows: auto;
@@ -74,11 +65,6 @@ titlebar {
     font-weight: 300;
 }
 
-tagbar {
-    background: #78909c;
-    display: flex;
-    min-height: 37px;
-}
 
 .editor {
     grid-area: editor;
@@ -145,26 +131,38 @@ notestoolbar {
     margin-top: 10px;
 }
 
-folderview {
+img {
+    max-width:100%;
+    height:auto;
+}
+
+folderpane {
     grid-area: folder;
     background-color: #B0BEC5;
     display: grid;
     grid-auto-rows: 6vh;
     grid-row-gap: 8px;
     padding: 1vw;
+    overflow: auto;
     @include z1;
 }
 
 .folder {
     background-color: #90a4ae;
+    height: 3rem;
+    cursor: pointer;
+}
+
+.card-icon {
+    padding: 8px;
 }
 
 itemlist {
     grid-area: items;
     background-color: #CFD8DC;
     display: grid;
-    grid-auto-rows: 4vh;
-    grid-row-gap: 4px;
+    grid-auto-rows: max-content;
+    grid-row-gap: 0.5rem;
     padding: 1vw;
     @include z1;
 }
@@ -173,6 +171,7 @@ itemlist {
     background-color: #b0bec5;
     line-height: normal;
     font-size: 16px;
+    cursor: pointer;
 }
 
 .invert {
@@ -182,5 +181,9 @@ itemlist {
 #docview {
     color: $dark-txt;
     background-color: white;
-    min-height: 91vh;
+    font-size: 10pt;
+    padding: 8px;
+    margin: 8px;
+    font-family: sans-serif;
+    overflow: scroll;
 }

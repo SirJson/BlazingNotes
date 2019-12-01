@@ -6,6 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Couchbase.Extensions.DependencyInjection" Version="2.0.2" />
+    <PackageReference Include="CouchbaseNetClient" Version="2.7.13" />
+    <PackageReference Include="Linq2Couchbase" Version="1.4.1" />
     <PackageReference Include="Microsoft.AspNetCore.Blazor.Server" Version="3.1.0-preview3.19555.2" />
   </ItemGroup>
 

@@ -152,8 +152,8 @@ body {
 
 main {
   display: grid;
-  grid-template-columns: 10vw 10vw auto;
-  grid-template-rows: auto auto;
+  grid-template-columns: 20vw 20vw 60vw;
+  grid-template-rows: 5vh auto;
   grid-template-areas: "appbar search titlebar" "folder items editor";
   width: 100vw;
   height: 100vh; }
@@ -170,26 +170,19 @@ toolbar {
   display: flex;
   grid-area: cfg;
   flex-direction: row;
-  justify-content: flex-end; }
+  justify-content: flex-end;
+  align-items: center; }
 
 nav > img {
   grid-area: logo;
   align-self: center;
   margin-left: 8px; }
 
-a.config {
-  align-self: flex-end; }
-
-a.about {
-  align-self: flex-end; }
-
-titlecontainer {
-  grid-area: titlebar;
-  grid-template-rows: auto auto;
-  grid-template-columns: auto;
-  display: grid; }
+toolbar > a {
+  margin: 4px; }
 
 titlebar {
+  grid-area: titlebar;
   display: grid;
   grid-template-columns: auto auto;
   grid-template-rows: auto;
@@ -198,11 +191,6 @@ titlebar {
   justify-content: space-between;
   font-size: 24px;
   font-weight: 300; }
-
-tagbar {
-  background: #78909c;
-  display: flex;
-  min-height: 37px; }
 
 .editor {
   grid-area: editor;
@@ -259,31 +247,42 @@ notestoolbar {
   width: min-content;
   margin-top: 10px; }
 
-folderview {
+img {
+  max-width: 100%;
+  height: auto; }
+
+folderpane {
   grid-area: folder;
   background-color: #B0BEC5;
   display: grid;
   grid-auto-rows: 6vh;
   grid-row-gap: 8px;
   padding: 1vw;
+  overflow: auto;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); }
 
 .folder {
-  background-color: #90a4ae; }
+  background-color: #90a4ae;
+  height: 3rem;
+  cursor: pointer; }
+
+.card-icon {
+  padding: 8px; }
 
 itemlist {
   grid-area: items;
   background-color: #CFD8DC;
   display: grid;
-  grid-auto-rows: 4vh;
-  grid-row-gap: 4px;
+  grid-auto-rows: max-content;
+  grid-row-gap: 0.5rem;
   padding: 1vw;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); }
 
 .item {
   background-color: #b0bec5;
   line-height: normal;
-  font-size: 16px; }
+  font-size: 16px;
+  cursor: pointer; }
 
 .invert {
   filter: invert(1); }
@@ -291,4 +290,8 @@ itemlist {
 #docview {
   color: rgba(40, 42, 54, 0.87);
   background-color: white;
-  min-height: 91vh; }
+  font-size: 10pt;
+  padding: 8px;
+  margin: 8px;
+  font-family: sans-serif;
+  overflow: scroll; }

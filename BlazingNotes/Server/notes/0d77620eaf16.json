@@ -1,0 +1,11 @@
+{
+  "createdAt": "2018-12-26T20:31:55.386Z",
+  "updatedAt": "2018-12-26T20:37:03.177Z",
+  "content": "# Disabling window animations on Mac\n\nOn macOS, windows and dialogs by default show a \"zoom in\" animation when you open them. You can disable them with the following snippet:\n\n---\n\n```python\n    from PyQt5.QtCore import QEvent, QObject\n    \n    def disable_window_animations_mac(window):\n        # We need to access `.winId()` below. This method has an unwanted (and not\n        # very well-documented) side effect: Calling it before the window is shown\n        # makes Qt turn the window into a \"native window\". This incurs performance\n        # penalties and leads to subtle changes in behaviour. We therefore wait for\n        # the Show event:\n        def eventFilter(target, event):\n            from objc import objc_object\n            view = objc_object(c_void_p=int(target.winId()))\n            NSWindowAnimationBehaviorNone = 2\n            view.window().setAnimationBehavior_(NSWindowAnimationBehaviorNone)\n        FilterEventOnce(window, QEvent.Show, eventFilter)\n\n    class FilterEventOnce(QObject):\n        def __init__(self, parent, event_type, callback):\n            super().__init__(parent)\n            self._event_type = event_type\n            self._callback = callback\n            parent.installEventFilter(self)\n        def eventFilter(self, target, event):\n            if event.type() == self._event_type:\n                self.parent().removeEventFilter(self)\n                self._callback(target, event)\n            return False\n```\n\n---",
+  "folder": "f675b25a4dc8e5aaec35",
+  "title": "Disabling window animations on Mac",
+  "type": "MARKDOWN_NOTE",
+  "tags": [],
+  "isStarred": false,
+  "isTrashed": false
+}

@@ -1,7 +1,5 @@
-﻿<card class=@(@class)>
-    <hspacer />
-    <i class="fas @Icon @Color"></i>
-    <hspacer-half />
+﻿<card class=@(@class) @onclick="OnClick">
+    <i class="card-icon fas @Icon @Color"></i>
     <span>@Name</span>
     @if (Counter > 1)
     {
@@ -21,4 +19,6 @@
     public string Icon { get; set; }
     [Parameter]
     public string @class { get; set; }
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnClick { get; set; }
 }

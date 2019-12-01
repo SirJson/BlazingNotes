@@ -1,4 +1,5 @@
 ﻿@page "/"
+@page "/doc/{file}"
 @inject IJSRuntime JSRuntime
 @using BlazingNotes.Shared
 @using Markdig
@@ -10,38 +11,55 @@
 }
 else
 {
-    <titlecontainer>
-        <titlebar>
-            <paneheader>
-                <img class="invert" src="img/icons8_opened_folder_96px.png" width="32" height="32" />
-                @document.Title
-            </paneheader>
-            <div>
-                <!-- <a href="/" class="config invert"><img src="img/tabaddtag.png" width="32" height="32" /></a>
-                <a href="/" class="config invert"><img src="img/tabfav.png" width="32" height="32" /></a>
-                           <a class="config invert"><img src="img/tabinfo.png" width="32" height="32" /></a>-->
-                <button @onclick="ShowMarkdown" class="config"><img src="img/tabshow.png" width="32" height="32" /></button>
-                <button @onclick="ShowEditor" class="config"><img src="img/tabedit.png" width="32" height="32" /></button>
-                <button class="config"><img src="img/tabdelete.png" width="32" height="32" /></button>
-
-            </div>
-        </titlebar>
-        <tagbar></tagbar>
-    </titlecontainer>
-   
+    <titlebar>
+        <paneheader>
+            <img class="invert" src="img/icons8_opened_folder_96px.png" width="32" height="32" />
+            @document.Title
+        </paneheader>
+        <div>
+            <button @onclick="ShowMarkdown" class="config"><img src="img/tabshow.png" width="32" height="32" /></button>
+            <button @onclick="ShowEditor" class="config"><img src="img/tabedit.png" width="32" height="32" /></button>
+            <button class="config"><img src="img/tabdelete.png" width="32" height="32" /></button>
+        </div>
+    </titlebar>
     <MonacoEditor @ref="editor" Model="@editorModel" class="editor" />
     <div style="display: @((editMode ? "none" : "block"))" id="docview" class="editor">@((MarkupString)renderedDoc)</div>
  }
 @code {
+    [Parameter]
+    public string File { get; set; }
+
     private EditorModel editorModel { get; set; }
     private MonacoEditor editor;
     private Document document;
     public bool editMode = true;
     private string renderedDoc = "<div>ERROR</div>";
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnParametersSetAsync()
     {
-        document = await Http.GetJsonAsync<Document>("Prototype");
+        System.Diagnostics.Debug.WriteLine("=== PARAM SET ===");
+        if(File == null) {
+            document = new Document() {
+                Title = "Unknown",
+                Content = string.Empty
+            };
+        }
+        else
+        {
+            document = await Http.GetJsonAsync<Document>($"Notes/{File}");
+        }
+
+        await editor.SetValue(document.Content);
+
+        if(editMode == false)
+        {
+            await UpdateDocumentView();
+        }
+    }
+
+
+    protected override void  OnInitialized()
+    {
         var options = new EditorOptions()
         {
             Language = "markdown",
@@ -55,14 +73,20 @@ else
 
         };
         editorModel = new EditorModel(options);
+
+    }
+
+    async Task UpdateDocumentView()
+    {
+        var content = await editor.GetValue();
+        renderedDoc = Markdown.ToHtml(content);
     }
 
     async Task ShowMarkdown()
     {
-        var content = await editor.GetValue();
-        renderedDoc = Markdown.ToHtml(content);
+        await UpdateDocumentView();
         editMode = false;
-        editor.Hidden = true; 
+        editor.Hidden = true;
         this.StateHasChanged();
     }
 

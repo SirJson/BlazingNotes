@@ -1,0 +1,12 @@
+{
+  "createdAt": "2019-03-14T06:19:05.939Z",
+  "updatedAt": "2019-03-31T01:08:10.977Z",
+  "type": "MARKDOWN_NOTE",
+  "folder": "ee272b0ec53ce75fa1dc",
+  "title": "ZBox Web Frontend - Privacy focused WebApp",
+  "tags": [],
+  "content": "# ZBox Web Frontend - Privacy focused WebApp\n\n[Zbox - Zero-details, privacy-focused embeddable file system.](https://zbox.io/)\n\n>ZboxFS is a zero-details, privacy-focused embeddable file system. Its goal is to help application store files securely, privately and reliably. By >encapsulating files and directories into an encrypted repository, it provides a virtual file system and exclusive access to authorised application.\n>\n>Unlike other system-level file systems, such as[ext4](https://en.wikipedia.org/wiki/Ext4),[XFS](http://xfs.org/) and [Btrfs](https://btrfs.wiki.kernel.org/), which provide shared access to multiple processes, ZboxFS is a file system that runs in the same memory space as the application. It only provides access to one process at a time.\n>\n>By abstracting IO access, ZboxFS supports a variety of underlying storage layers, including memory, OS file system, RDBMS and key-value object store.\n\nIst in Rust Programmiert und sowas brauchte ich schon so oft. Wenn man das jetzt evtl mit Actix zu ner WebAPI macht hat man sowas wie ne Vault nur Simpler. Muss nachdenken.",
+  "linesHighlighted": [],
+  "isStarred": false,
+  "isTrashed": false
+}

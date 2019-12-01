@@ -1,6 +1,29 @@
-﻿<ItemBar></ItemBar>
+﻿@inject IJSRuntime JSRuntime
+@using BlazingNotes.Shared
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+
+<ItemBar></ItemBar>
 <itemlist>
+    @if (metadata != null)
+    {
+        @foreach (var data in metadata)
+        {
+            <Card class="item" Color="navy" Icon="fa-file-alt" Counter="0" Name="@data.Title" OnClick="() => { OpenDoc(data.Id); }"></Card>
+        }
+    }
 </itemlist>
 
+
 @code {
+    List<DocumentMeta> metadata;
+    protected override async Task OnInitializedAsync()
+    {
+        metadata = await Http.GetJsonAsync<List<DocumentMeta>>("Notes");
+    }
+
+    public void OpenDoc(string id)
+    {
+        NavigationManager.NavigateTo($"/doc/{id}");
+    }
 }
