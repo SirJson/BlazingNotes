@@ -295,3 +295,9 @@ itemlist {
   margin: 8px;
   font-family: sans-serif;
   overflow: scroll; }
+
+form {
+  background-color: white;
+  color: black;
+  display: flex;
+  flex-direction: column; }

@@ -19,7 +19,7 @@
     List<DocumentMeta> metadata;
     protected override async Task OnInitializedAsync()
     {
-        metadata = await Http.GetJsonAsync<List<DocumentMeta>>("Notes");
+        metadata = await Http.GetJsonAsync<List<DocumentMeta>>("api/Notes");
     }
 
     public void OpenDoc(string id)

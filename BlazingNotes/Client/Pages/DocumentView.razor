@@ -1,0 +1,104 @@
+﻿@page "/doc"
+@page "/doc/{file}"
+@inject IJSRuntime JSRuntime
+@using BlazingNotes.Shared
+@using Markdig
+@inject HttpClient Http
+
+<NavMenu></NavMenu>
+<FolderView></FolderView>
+<ItemsView></ItemsView>
+
+@if (document == null)
+{
+    <div>Loading</div>
+}
+else
+{
+    <titlebar>
+        <paneheader>
+            <img class="invert" src="img/icons8_opened_folder_96px.png" width="32" height="32" />
+            @document.Title
+        </paneheader>
+        <div>
+            <button @onclick="ShowMarkdown" class="config"><img src="img/tabshow.png" width="32" height="32" /></button>
+            <button @onclick="ShowEditor" class="config"><img src="img/tabedit.png" width="32" height="32" /></button>
+            <button class="config"><img src="img/tabdelete.png" width="32" height="32" /></button>
+        </div>
+    </titlebar>
+    <MonacoEditor @ref="editor" Model="@editorModel" Hidden="@(!editMode)" class="editor" />
+    <div style="display: @((editMode ? "none" : "block"))" id="docview" class="editor">@((MarkupString)renderedDoc)</div>
+}
+@code {
+    [Parameter]
+    public string File { get; set; }
+
+    private EditorModel editorModel { get; set; }
+    private MonacoEditor editor;
+    private Document document;
+    public bool editMode = true;
+    private string renderedDoc = "<div>ERROR</div>";
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (File == null)
+        {
+            document = new Document()
+            {
+                Title = "Unknown",
+                Content = string.Empty
+            };
+        }
+        else
+        {
+            document = await Http.GetJsonAsync<Document>($"api/Notes/{File}");
+        }
+        if (editor != null)
+        {
+            await editor.SetValue(document.Content);
+        }
+        if (editMode == false)
+        {
+            await UpdateDocumentView();
+        }
+    }
+
+
+    protected override void OnInitialized()
+    {
+        var options = new EditorOptions()
+        {
+            Language = "markdown",
+            Theme = "vs-light",
+            AutomaticLayout = true,
+            Contextmenu = false,
+            Minimap = new MinimapOptions()
+            {
+                Enabled = false
+            },
+        };
+        if (document != null)
+        {
+            options.Value = document.Content;
+        }
+        editorModel = new EditorModel(options);
+    }
+
+    async Task UpdateDocumentView()
+    {
+        var content = await editor.GetValue();
+        renderedDoc = Markdown.ToHtml(content);
+    }
+
+    async Task ShowMarkdown()
+    {
+        await UpdateDocumentView();
+        editMode = false;
+        this.StateHasChanged();
+    }
+
+    void ShowEditor()
+    {
+        editMode = true;
+    }
+}

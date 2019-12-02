@@ -7,11 +7,10 @@ namespace BlazingNotes.Client
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            if (services is null)
+                throw new System.ArgumentNullException(nameof(services));
         }
 
-        public void Configure(IComponentsApplicationBuilder app)
-        {
-            app.AddComponent<App>("app");
-        }
+        public void Configure(IComponentsApplicationBuilder app) => app.AddComponent<App>("app");
     }
 }

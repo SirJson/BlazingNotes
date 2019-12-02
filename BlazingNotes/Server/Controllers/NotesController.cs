@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BlazingNotes.Server.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class NotesController : Controller
     {
         // GET: api/<controller>
